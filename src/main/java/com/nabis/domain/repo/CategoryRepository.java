@@ -1,8 +1,9 @@
 package com.nabis.domain.repo;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface CategoryRepository {
+import com.nabis.domain.entity.CategoryEntity;
 
+public interface CategoryRepository extends JpaRepository<CategoryEntity, String>{
+	CategoryEntity findByNm(String nm);
 }
