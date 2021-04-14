@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="micro.api.mapper.ApiMapper">
+	<select id="getApiSecret" parameterType="map" resultType="hashmap" >
+		SELECT uid,passphrase
+		FROM api_secret
+		WHERE pubkey = #{key}
+		AND level &lt;= ${level}
+    </select>
+
+    <select id="getCOItem" parameterType="map" resultType="String" >
+		SELECT item_cd
+		FROM co_item
+		WHERE item_ccd = #{coinCode}
+		AND finance_status = 1
+    </select>
+
+    <select id="getOrderCoin" parameterType="map" resultType="String" >
+		SELECT item_ccd
+		FROM base_coin
+		WHERE item_ccd = #{coinCode}
+		AND base_code = #{baseCode}
+		AND status = 1
+    </select>
+
+    <select id="getOrderInfo" resultType="micro.core.vo.OrderDto$Cancel" parameterType="micro.core.vo.OrderDto$Cancel">
+		SELECT
+			id AS orderId,
+			base_code AS baseCode,
+			price,
+			type AS orderType
+		FROM order_${coinCode}
+		WHERE uid = #{header.uid}
+		AND id =#{orderId}
+    </select>
+
+
+
+</mapper>
+
